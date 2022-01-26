@@ -7,6 +7,7 @@ Discord Bot Name: PROC7
 Description:
 Gives a set of certain commands to users that allows them to create events on certain dates and allows users to set notifications when
 the date of the event comes.
+
 ex: 
 
 !eventset <Event-Name>
