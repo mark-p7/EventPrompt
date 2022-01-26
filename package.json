@@ -1,0 +1,16 @@
+{
+  "name": "proc7",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Procseven",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^13.6.0",
+    "firebase-admin": "^10.0.2",
+    "randomstring": "^1.2.2"
+  }
+}
