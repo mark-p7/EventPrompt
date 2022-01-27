@@ -1,5 +1,5 @@
 # Proc7
-Github User: GeneticDiff
+Github User: mark-p7
 Author: Mark De Guzman
 
 Discord Bot Name: PROC7
