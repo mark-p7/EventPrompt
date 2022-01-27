@@ -39,40 +39,43 @@ client.on('messageCreate', msg => {
   }
 });
 
+// !commands
 client.on('messageCreate', msg => {
-  // to-do: Update Commands
   if (msg.content === '!commands') {
-    msg.reply("commands: !eventset <Event Name>\n!eventgetbyid\n!eventgetall");
+    msg.reply("!eventset <Event Name>\n: creates an event with an AUTO-GENERATED ID\n"
+    + "\n!eventdate <Event ID>, <yyyy/mm/dd>\n: sets a date for an event\n"
+    + "\n!eventgetall\n: gets all events on the server\n"
+    + "\n!eventgetbyid\n: gets event by ID\n");
   }
 });
 
-// client.on('messageCreate', msg => {
-//   if (msg.content === '!eventget') {
-//     let allEvents = DB.collection("Events");
-//     let events = allEvents.get().then(snapshot => {
-//       snapshot.forEach(doc => {
-//         msg.reply(doc.id, '=>', doc.data());
-//       });
-//     })
-//   }
-// });
-
+// !eventgetall
 client.on('messageCreate', msg => {
   if (msg.content === '!eventgetall') {
+    var count = 0
     DB.collection("Events").get().then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
         result = doc.data()
-        let eventName = result.EventDetails
+        let eventName = result.EventName
         let eventDate = result.EventDate
         if (msg.guild.id === result.EventGuild) {
-          msg.reply(`Event Name: ${eventName}\nEvent Date: ${eventDate}\nEvent ID: ${doc.id}`);
+          if (eventDate == null){
+            msg.reply(`Event Name: ${eventName}\nEvent ID: ${doc.id}`);
+          } else{
+            msg.reply(`Event Name: ${eventName}\nEvent Date: ${eventDate}\nEvent ID: ${doc.id}`);
+          }
+          count++
         }
         // to-do: format eventdate to display in string format ex: Tuesday 27 2022
       });
-    })
+      
+    }).finally(() =>{
+      msg.reply(`Found ${count} Events.`)
+    });
   }
 });
 
+// !getserverid
 client.on('messageCreate', msg => {
   if (msg.content === '!getserverid') {
     // to-do: get specific event by id
@@ -87,8 +90,9 @@ client.on('messageCreate', msg => {
     return;
   }
 
-  if (msg.content.startsWith("!eventset")) {
-    const event = msg.content.replace('!eventset', '');
+  if (msg.content.startsWith("!eventset ")) {
+    var event = msg.content.replace('!eventset ', '');
+    event = event.replace(" ", "");
     if (event == "") {
       msg.reply("Please Enter a name for the event using '!eventset <Event Name>'")
       return;
@@ -97,54 +101,56 @@ client.on('messageCreate', msg => {
     const author = msg.author.id;
     const guild = msg.guild.id;
     DB.collection("Events").doc(eventID).set({
+      EventName: event,
       EventOwner: author,
       EventGuild: guild,
-      DocID = eventID
+      DocID: eventID
     })
 
-    msg.reply('Event Created, there are some commands to try out to help you manage your event:\n!eventdate <Event ID>, <yyyy/mm/dd>\n!eventgetbyid <Event ID>\n!eventdelete <Event ID>\n!eventgetall');
+    msg.reply(`Event ID: ${eventID} Created, there are some commands to try out to help you manage your event:\n!eventdate <Event ID>, <yyyy/mm/dd>\n!eventgetbyid <Event ID>\n!eventdelete <Event ID>\n!eventgetall`);
   }
 
 })
 
+// Returns true if DocID is in collection
+async function checkEventId(eventId){
+  const EventCollection = DB.collection('Events');
+  const snapshot = await EventCollection.where('DocID', '==', eventId).get();
+  if (snapshot.empty) {
+    return false;
+  }  
+  return true;
+}
+
+
 // !eventdate 
-client.on('messageCreate', msg => {
+client.on('messageCreate', async msg => {
   if (msg.author === client.user) {
     return;
   }
   // to-do: test all edge cases: !234567890 shouldnt be an accepted string
-  if (msg.content.startsWith("!eventdate") && msg.content.length == 43) {
+  if (msg.content.startsWith("!eventdate ") && msg.content.length == 43) {
     var IDandDate = msg.content.replace('!eventdate', '')
     var dateArray = IDandDate.split(",")
-    let eventID = dateArray[0]
-    let date = dateArray[1]
+    let eventID = dateArray[0].replace(' ', '')
+    let date = dateArray[1].replace(' ', '')
+    console.log(eventID)
+    console.log(date)
 
-    DB.collection("Events").get().then((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        result = doc.data()
-        let index = 0
-        if (eventID === result.DocID) {
-          result.DocID
-          msg.reply(`Event Name: ${eventName}\nEvent Date: ${eventDate}\nEvent ID: ${doc.id}`);
-          index++;
-        }
-        if (index == 0){
-          msg.reply("Could not find Event ID string. Please make sure the Event ID is correct.")
-        }
-        // to-do: format eventdate to display in string format ex: Tuesday 27 2022
-      });
-    })
-    
-    DB.collection('Events').doc(eventID).update({
-      // to-do: change EventDetails to EventName, and maybe add another paramater that accepts a description
-      EventDate: date
-    }).then(() => {
-      msg.reply(`Date added successfully for Event ID: ${eventID}`)
-    }).catch(() => {
-      msg.reply("Error uploading to database. Please resubmit '!eventset <Event Name>'command")
-    }).finally(() => {
-      return;
-    })
+    if (checkEventId(eventID)){
+
+      const collection = DB.collection('Events').doc(eventID);
+      const doc = await collection.get();
+      const res = doc.data();
+
+      DB.collection('Events').doc(eventID).update({
+        EventDate: date
+      }).then(() => {
+        msg.reply(`Event: ${res.EventName}, now scheduled for ${date}`)
+      })
+    } else{
+      msg.reply("Event does not exist. Please try again. " + eventID)
+    }
   } else if (msg.content.startsWith("!eventsdate")){
     msg.reply("Please make sure your arguments are correct. It should have the format of '!eventdate <Event ID>, <yyyy/mm/dd>'")
   }
@@ -152,9 +158,6 @@ client.on('messageCreate', msg => {
 
 
 // to-do: Send notification through discord when EventDay is the current date
-
-// to-do: Create Git REPO and add gitignore on private files
-// to-do: Host bot
-
+// to-do: Host bot  
 
 client.login(token)
