@@ -1,4 +1,3 @@
-// Require the necessary discord.js classes
 // const { Client, Intents, Message } = require('discord.js')
 const {
   token
@@ -16,7 +15,6 @@ const client = new Discord.Client({
     "GUILD_MESSAGES"
   ]
 })
-// const client = new Discord.Client();
 // const mySecret = process.env['DISCORD_TOKEN'];
 var admin = require("firebase-admin");
 var serviceAccount = require("./firebase.json");
@@ -31,18 +29,10 @@ client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}`)
 })
 
-client.on('messageCreate', msg => {
-  if (msg.content === '!IMISSTHERAGE') {
-    msg.reply('I MISS THE RAGE!? I MISS THE RAGE!? I MISS THE RAGE!? I MISS THE RAGE!? I MISS THE RAGE!? I MISS THE RAGE!? I MISS THE RAGE!? I MISS THE RAGE!? I MISS THE RAGE!? I MISS THE RAGE!?');
-    msg.reply('eeeI MISS THE RAGE!? I MISS THE RAGE!? I MISS THE RAGE!? I MISS THE RAGE!? I MISS THE RAGE!? I MISS THE RAGE!? I MISS THE RAGE!? I MISS THE RAGE!? I MISS THE RAGE!? I MISS THE RAGE!?');
-
-  }
-});
-
 // !commands
 client.on('messageCreate', msg => {
   if (msg.content === '!commands') {
-    msg.reply("!eventset <Event Name>\n: creates an event with an AUTO-GENERATED ID\n"
+    msg.reply("!eventset <Event Name>\n: creates an event with an auto-generated ID\n"
     + "\n!eventdate <Event ID>, <yyyy/mm/dd>\n: sets a date for an event\n"
     + "\n!eventgetall\n: gets all events on the server\n"
     + "\n!eventgetbyid\n: gets event by ID\n");
