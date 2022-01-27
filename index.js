@@ -60,7 +60,7 @@ client.on('messageCreate', msg => {
       });
       
     }).finally(() =>{
-      msg.reply(`Found ${count} Events.`)
+      msg.reply(`Found ${count} Event(s)`)
     });
   }
 });
