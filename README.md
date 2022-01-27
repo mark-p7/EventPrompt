@@ -22,5 +22,19 @@ At this point when the day of the event comes, the Discord Bot will notify users
 
 Documentation:
 
+!commands
+: prints a list of commands 
+  
+!eventset <Event Name>
+: creates an event with an AUTO-GENERATED ID
+
+!eventdate <Event ID>, <yyyy/mm/dd>
+: sets a date for an event
+
+!eventgetall
+: gets all events on the server
+
+!eventgetbyid
+: gets event by ID
 
 
