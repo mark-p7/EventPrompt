@@ -8,7 +8,22 @@ Description:
 Gives a set of certain commands to users that allows them to create events on certain dates and allows users to set notifications when
 the date of the event comes.
 
-ex: 
+Instructions
+To run your bot with this code, please do the following:
+First install node.js ver 16.6.0 or higher
+Install Discord.js: `npm install discord.js`
+Install Firebase: `npm install --save firebase-admin`
+Go to Firebase console > Create a project > Go to service account under project settings > copy paste node.js code then generate private key and save it as firebase.json
+Create a config.json file with the code below pasted in:
+`
+{
+    "token": "<your-token-goes-here>"
+}
+`
+You can get your token from creating a discord bot here > https://discord.com/developers/applications
+Just click 'bot' under the settings tab and copy the token from there
+
+Use case example: 
 
 !eventset <Event-Name>
 
