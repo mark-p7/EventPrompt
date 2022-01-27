@@ -12,13 +12,11 @@ ex:
 
 !eventset <Event-Name>
 
---Bot will pompt for date--
+--Bot will create an event and auto generate an Event ID--
 
-!2022/01/05
+!eventdate <Event-ID>, <YYYY/MM/DD>
 
---Bot will verify and add the data to the database--
-
-At this point when the day of the event comes, the Discord Bot will notify users of the event.
+--Bot will verify and add the date to the event the database--
 
 Documentation:
 
