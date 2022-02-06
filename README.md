@@ -1,8 +1,8 @@
-# Proc7
+# Proc7 Discord bot
 Github User: mark-p7
 Author: Mark De Guzman
 
-Discord Bot Name: PROC7
+Discord Bot Name: procseven
 
 Description:
 Gives a set of certain commands to users that allows them to create events on certain dates and allows users to set notifications when
