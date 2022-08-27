@@ -1,12 +1,13 @@
 # EventPrompt Discord bot
+![EventPromptLogo](https://user-images.githubusercontent.com/78812508/187024300-d02d0c01-5d8b-4e5e-98fe-f8021a1f5538.PNG)
 
 Author: Mark De Guzman (mark-p7)
 
 Discord Bot Name: EventPrompt
-To add bot to YOUR server: https://discord.com/api/oauth2/authorize?client_id=935408901397028905&permissions=274878106624&scope=bot 
+
+https://discord.com/api/oauth2/authorize?client_id=935408901397028905&permissions=274878106624&scope=bot 
 ## Description
-Gives a set of certain commands to users that allows them to create events on certain dates and allows users to set notifications when
-the date of the event comes.
+Event Prompt is a Discord bot that allows users to send timed notifications to alert themselves of future events. Useful for birthdays, important meetings, doctor appointments or anything you want to be reminded of in the future.
 
 ## Instructions
 To run your bot with this code, please do the following:
@@ -47,3 +48,4 @@ Just click 'bot' under the settings tab and copy the token from there
 - Javascript
     - Node.js
     - Discord.js
+    - Firebase Cloud Firestore
