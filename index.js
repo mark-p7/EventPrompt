@@ -103,7 +103,7 @@ client.on('messageCreate', msg => {
       Recurring: false
     })
 
-    msg.reply(`Event ID: ${eventID} Created, there are some commands to try out to help you manage your event:\n!seteventdate <Event ID> <yyyy/mm/dd>\n!eventgetbyid <Event ID>\n!eventdelete <Event ID>\n!eventgetall`);
+    msg.reply(`Event ID: ${eventID} Created, there are some commands to try out to help you manage your event:\n!seteventdate <Event ID> <yyyy/mm/dd>\n!seteventrecurrence <Event ID> <T/F>\n!eventgetbyid <Event ID>\n!eventdelete <Event ID>\n!eventgetall`);
   }
 
 })
@@ -187,15 +187,14 @@ client.on('messageCreate', async msg => {
       msg.reply("Event does not exist. Please try again. " + eventID)
     }
   } else if (msg.content.startsWith("!seteventdate")) {
-    msg.reply("Please make sure your arguments are correct. It should have the format of '!eventdate <Event ID> <yyyy/mm/dd>'")
+    msg.reply("Please make sure your arguments are correct. It should have the format of '!seteventdate <Event ID> <yyyy/mm/dd>'")
   }
 });
 
 
 // to-do: Send notification through discord when EventDay is the current date
 // Checks if any events happen to be today
-schedule.scheduleJob('43 7 * * *', () => {
-  console.log("sup")
+schedule.scheduleJob('0 0 * * *', () => {
   var today = new Date();
   var dd = String(today.getDate()).padStart(2, '0');
   var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
