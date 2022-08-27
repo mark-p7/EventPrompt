@@ -3,7 +3,7 @@
 Author: Mark De Guzman (mark-p7)
 
 Discord Bot Name: EventPrompt
-
+To add bot to YOUR server: https://discord.com/api/oauth2/authorize?client_id=935408901397028905&permissions=274878106624&scope=bot 
 ## Description
 Gives a set of certain commands to users that allows them to create events on certain dates and allows users to set notifications when
 the date of the event comes.
